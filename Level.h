@@ -6,11 +6,4 @@
 
 
 class Level : public sf::Drawable {
-public:
-	Level();
-	void load(sf::Drawable &obj);
-	virtual void draw(sf::RenderTarget& target, sf::RenderStates states);
-	~Level();
-private:
-	std::vector<sf::Drawable> objects;
 };
