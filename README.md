@@ -1,0 +1,2 @@
+# MiniGolfGame
+First SFML project
