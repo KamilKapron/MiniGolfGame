@@ -7,6 +7,7 @@ Ball::Ball(float x, float y, float r)
 	if (ball_texture.loadFromFile("Textures/ball_texture.jpg")) {
 		this->shape.setTexture(&ball_texture);
 	}
+	this->velocity = sf::Vector2f(0, 0);
 	this->shape.setRadius(r);
 	this->shape.setFillColor(sf::Color(255, 255, 255));
 	this->shape.setOutlineThickness(1.f);
@@ -22,19 +23,37 @@ void Ball::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 Ball::~Ball() {
 
 }
-float Ball::getPositionX() const {
-	return this->shape.getPosition().x;
-}
-float Ball::getPositionY() const {
-	return this->shape.getPosition().y;
-}
+
 sf::CircleShape &Ball::getBall() {
 	return this->shape;
 }
 
 bool Ball::getFlag() {
-	return clicked;
+	return this->clicked;
 }
 void Ball::setFlag(bool flag) {
-	clicked = flag;
+	this->clicked = flag;
+}
+void Ball::velocityDecrease() {
+	if (this->velocity.y < 0) {
+		this->velocity.y += -this->velocity.y * 0.05;
+	}
+	if (this->velocity.y > 0) {
+		this->velocity.y -= this->velocity.y * 0.05;
+	}
+	if (this->velocity.x < 0) {
+		this->velocity.x += -this->velocity.x * 0.05;
+	}
+	if (this->velocity.x > 0) {
+		this->velocity.x -= this->velocity.x * 0.05;
+	}
+}
+void Ball::update() {
+	this->shape.setPosition(this->shape.getPosition() + this->velocity);
+}
+void Ball::setVelocity(sf::Vector2f velocity) {
+	this->velocity = velocity;
+}
+sf::Vector2f &Ball::getVelocity() {
+	return this->velocity;
 }
